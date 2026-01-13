@@ -1,0 +1,37 @@
+package net.engineeringdigest.journalApp.appCache;
+
+
+import net.engineeringdigest.journalApp.entity.ConfigJournalAppEntity;
+import net.engineeringdigest.journalApp.repositry.ConfigJournalAppRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Component
+public class AppCache {
+
+    public Map<String, String> appCache;
+    @Autowired
+    private ConfigJournalAppRepository configJournalAppRepository;
+
+    @PostConstruct
+    public void init() {
+        appCache = new HashMap<>();
+        List<ConfigJournalAppEntity> all = configJournalAppRepository.findAll();
+        for (ConfigJournalAppEntity configJournalAppEntity : all) {
+            appCache.put(configJournalAppEntity.getKey(), configJournalAppEntity.getValue());
+        }
+    }
+
+    public enum keys {
+        WEATHER_API;
+    }
+
+}
+
+
+

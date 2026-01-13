@@ -18,6 +18,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
+
+
+
     @GetMapping
     public List<Users> getAll() {
         return userService.getAll();
@@ -47,5 +51,8 @@ public class UserController {
 
 
     }
+
+
+
 
 }
