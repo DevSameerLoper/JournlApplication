@@ -18,10 +18,17 @@ public class RedisService {
     public <T> T get(String key, Class<T> entityClass) {
         try {
             Object o = redisTemplate.opsForValue().get(key);
+
+            if (o == null) {
+                log.info("Cache miss for key: {}", key);
+                return null;
+            }
+
             ObjectMapper mapper = new ObjectMapper();
             return mapper.readValue(o.toString(), entityClass);
+
         } catch (Exception e) {
-            log.error("Exception ", e);
+            log.error("Exception while fetching from Redis for key: {}", key, e);
             return null;
         }
     }

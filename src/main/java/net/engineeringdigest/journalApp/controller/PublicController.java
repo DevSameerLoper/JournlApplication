@@ -37,7 +37,7 @@ public class PublicController {
 
     }
     @GetMapping("/weather")
-    public ResponseEntity<?> getWeather() {
+    public ResponseEntity<> getWeather() {
 
         WeatherResponse response = weatherService.getWeather("Sitamau");
         String weather="";
